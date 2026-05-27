@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+<meta name="theme-color" content="#ffc726">
+<title>Protect your income – Gig Worker Social Protection</title>
+<link rel="icon" type="image/svg+xml" href="https://upload.wikimedia.org/wikipedia/commons/e/ef/Flag_of_Barbados.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          'bb-yellow-00': '#e8a833', 'bb-yellow-100': '#ffc726', 'bb-yellow-40': '#ffe9a8', 'bb-yellow-10': '#fff9e9',
+          'bb-blue-00': '#00164a', 'bb-blue-100': '#00267f', 'bb-blue-40': '#99a8cc', 'bb-blue-10': '#e5e9f2',
+          'bb-black-00': '#000', 'bb-mid-grey-00': '#595959', 'bb-grey-00': '#e0e4e9', 'bb-white-00': '#fff',
+          'bb-green-00': '#00654a', 'bb-green-100': '#1fbf84', 'bb-green-40': '#a5e5ce', 'bb-green-10': '#e9f9f3',
+          'bb-red-00': '#a42c2c', 'bb-red-100': '#ff6b6b', 'bb-red-40': '#ffc4c4', 'bb-red-10': '#fff0f0',
+          'bb-teal-00': '#0e5f64', 'bb-teal-100': '#30c0c8', 'bb-teal-40': '#ace6e9', 'bb-teal-10': '#eaf9f9',
+          'bb-purple-00': '#4a235a', 'bb-purple-100': '#a962c7',
+          'bb-pink-00': '#ad1157', 'bb-pink-100': '#ff94d9',
+        },
+        fontFamily: { sans: ['Figtree', '-apple-system', 'system-ui', 'sans-serif'] },
+        boxShadow: {
+          'form-hover': 'inset 4px 4px 0px 0px #0000001a',
+          'card': '0 1px 2px rgba(0,22,74,0.04), 0 4px 14px rgba(0,22,74,0.06)',
+          'card-hover': '0 2px 4px rgba(0,22,74,0.06), 0 12px 28px rgba(0,22,74,0.10)',
+        },
+      },
+    },
+  };
+</script>
+<style>
+  :root {
+    --color-yellow-00:#e8a833; --color-yellow-100:#ffc726; --color-yellow-40:#ffe9a8; --color-yellow-10:#fff9e9;
+    --color-blue-00:#00164a; --color-blue-100:#00267f; --color-blue-40:#99a8cc; --color-blue-10:#e5e9f2;
+    --color-black-00:#000; --color-mid-grey-00:#595959; --color-grey-00:#e0e4e9; --color-white-00:#fff;
+    --color-green-00:#00654a; --color-green-100:#1fbf84; --color-green-40:#a5e5ce; --color-green-10:#e9f9f3;
+    --color-red-00:#a42c2c; --color-red-100:#ff6b6b; --color-red-40:#ffc4c4; --color-red-10:#fff0f0;
+    --color-teal-00:#0e5f64; --color-teal-100:#30c0c8; --color-teal-40:#ace6e9; --color-teal-10:#eaf9f9;
+  }
+  html, body { font-family: Figtree, -apple-system, system-ui, sans-serif; }
+  body {
+    font-weight: 400; line-height: 1.55;
+    display: grid; min-height: 100vh; grid-template-rows: auto auto auto 1fr auto;
+    background: var(--color-white-00); color: var(--color-black-00);
+    -webkit-font-smoothing: antialiased; -webkit-tap-highlight-color: transparent;
+  }
+  .container { max-width: 1200px; margin-inline: auto; padding-inline: 16px; }
+  .stage { max-width: 560px; margin-inline: auto; }
+  .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+
+  input[type=range] {
+    -webkit-appearance: none; appearance: none; width: 100%; height: 10px;
+    background: #e5e9f2; border-radius: 999px; outline: none;
+    background-image: linear-gradient(#0e5f64, #0e5f64);
+    background-size: 0% 100%; background-repeat: no-repeat;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none; width: 32px; height: 32px;
+    border-radius: 50%; background: #0e5f64; cursor: pointer;
+    border: 5px solid #fff; box-shadow: 0 2px 8px rgba(0,22,74,0.25);
+  }
+  input[type=range]::-moz-range-thumb {
+    width: 32px; height: 32px; border-radius: 50%; background: #0e5f64; cursor: pointer;
+    border: 5px solid #fff; box-shadow: 0 2px 8px rgba(0,22,74,0.25);
+  }
+  input[type=range]:focus-visible { box-shadow: 0 0 0 4px #30c0c8; }
+
+  .screen { animation: fade 0.28s ease-out; }
+  @keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  .selectable[aria-checked="true"],
+  .selectable.selected {
+    border-color: #0e5f64; background: #eaf9f9;
+    box-shadow: 0 0 0 2px #0e5f64 inset;
+  }
+
+  .btn-primary {
+    background: #0e5f64; color: #fff;
+    transition: background-color .15s, box-shadow .15s, transform .05s;
+  }
+  .btn-primary:hover { background: #1a777d; box-shadow: inset 0 0 0 4px rgba(222,245,246,0.10); }
+  .btn-primary:active { background: #0a4549; transform: translateY(1px); }
+  .btn-primary:focus-visible { outline: none; box-shadow: 0 0 0 4px #30c0c8; }
+  .btn-primary:disabled { background: #99a8cc; cursor: not-allowed; box-shadow: none; }
+
+  .btn-secondary {
+    background: #fff; color: #0e5f64; border: 2px solid #0e5f64;
+    transition: background-color .15s, color .15s;
+  }
+  .btn-secondary:hover { background: #eaf9f9; }
+  .btn-secondary:focus-visible { outline: none; box-shadow: 0 0 0 4px #30c0c8; }
+
+  .link-bb {
+    color: #0e5f64; text-decoration: underline; text-underline-offset: 2px;
+  }
+  .link-bb:hover { color: #000; background: #eaf9f9; text-decoration: none; }
+  .link-bb:focus-visible { outline: none; background: #ffc726; color: #000; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<!-- Top bar -->
+<div class="bg-bb-blue-100 text-bb-white-00">
+  <div class="container">
+    <div class="stage flex items-center gap-2 py-2 text-[0.85rem]">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Coat_of_arms_of_Barbados_%282%29.svg/1280px-Coat_of_arms_of_Barbados_%282%29.svg.png"
+           alt="" class="h-4 w-auto" />
+      <span>Official website of the Government of Barbados</span>
+    </div>
+  </div>
+</div>
+
+<!-- Yellow header with GoB logo -->
+<header class="bg-bb-yellow-100">
+  <div class="container">
+    <div class="stage py-3">
+      <div class="text-bb-black-00" style="max-width: 240px;">
+        <svg viewBox="0 0 276 27" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto" role="img" aria-label="Government of Barbados">
+          <path d="M39.079 21.527C37.5026 21.527 36.103 21.1903 34.8802 20.5168C33.6721 19.8286 32.7219 18.8916 32.0294 17.7057C31.337 16.5051 30.9908 15.1288 30.9908 13.5769C30.9908 12.0249 31.337 10.6559 32.0294 9.47001C32.7219 8.26943 33.6721 7.3324 34.8802 6.65891C36.103 5.97077 37.5026 5.6267 39.079 5.6267C40.0219 5.6267 40.8911 5.7658 41.6867 6.04398C42.4823 6.32216 43.1821 6.71015 43.7861 7.20795C44.4049 7.69111 44.9205 8.24747 45.3331 8.87704L42.858 10.4144C42.6075 10.0191 42.276 9.66767 41.8635 9.3602C41.4657 9.05274 41.0237 8.81116 40.5376 8.63547C40.0514 8.45977 39.5652 8.37192 39.079 8.37192C38.1067 8.37192 37.2448 8.59886 36.4934 9.05274C35.7421 9.49197 35.1527 10.0996 34.7255 10.8756C34.2982 11.6515 34.0846 12.552 34.0846 13.5769C34.0846 14.5871 34.2909 15.4875 34.7034 16.2782C35.1307 17.0688 35.7273 17.691 36.4934 18.1449C37.2595 18.5841 38.1435 18.8038 39.1453 18.8038C39.8967 18.8038 40.567 18.6647 41.1563 18.3865C41.7456 18.0937 42.2171 17.691 42.5707 17.1786C42.9243 16.6661 43.1231 16.0659 43.1673 15.3777H39.5873V13.0278H46.0844V14.8946C46.055 16.3001 45.7382 17.5007 45.1342 18.4963C44.5301 19.4773 43.7051 20.2313 42.6591 20.7584C41.613 21.2708 40.4197 21.527 39.079 21.527Z"/>
+          <path d="M52.8353 21.527C51.7156 21.527 50.7138 21.2854 49.8298 20.8023C48.9606 20.3045 48.2755 19.6237 47.7746 18.7598C47.2884 17.896 47.0453 16.9004 47.0453 15.773C47.0453 14.6457 47.2884 13.6501 47.7746 12.7862C48.2608 11.9224 48.9385 11.2489 49.8077 10.7658C50.677 10.268 51.6714 10.0191 52.7911 10.0191C53.9255 10.0191 54.9273 10.268 55.7966 10.7658C56.6658 11.2489 57.3435 11.9224 57.8297 12.7862C58.3159 13.6501 58.559 14.6457 58.559 15.773C58.559 16.9004 58.3159 17.896 57.8297 18.7598C57.3435 19.6237 56.6658 20.3045 55.7966 20.8023C54.9421 21.2854 53.955 21.527 52.8353 21.527ZM52.8353 18.8477C53.3804 18.8477 53.8592 18.7159 54.2717 18.4524C54.6843 18.1888 55.001 17.8301 55.222 17.3763C55.4577 16.9077 55.5756 16.3733 55.5756 15.773C55.5756 15.1728 55.4577 14.6457 55.222 14.1918C54.9863 13.7233 54.6548 13.3572 54.2275 13.0937C53.815 12.8302 53.3362 12.6984 52.7911 12.6984C52.2607 12.6984 51.7819 12.8302 51.3547 13.0937C50.9421 13.3572 50.618 13.7233 50.3823 14.1918C50.1466 14.6457 50.0287 15.1728 50.0287 15.773C50.0287 16.3733 50.1466 16.9077 50.3823 17.3763C50.618 17.8301 50.9495 18.1888 51.3768 18.4524C51.804 18.7159 52.2902 18.8477 52.8353 18.8477Z"/>
+          <path d="M62.8109 21.2635L58.2806 10.2826H61.2861L64.2694 17.9472L67.2528 10.2826H70.2583L65.728 21.2635H62.8109Z"/>
+          <path d="M75.7678 21.527C74.6776 21.527 73.7126 21.2854 72.8729 20.8023C72.0331 20.3045 71.3701 19.6237 70.884 18.7598C70.4125 17.896 70.1768 16.9004 70.1768 15.773C70.1768 14.6457 70.4199 13.6501 70.906 12.7862C71.407 11.9224 72.0847 11.2489 72.9392 10.7658C73.8084 10.268 74.8029 10.0191 75.9225 10.0191C76.8949 10.0191 77.7862 10.2753 78.5965 10.7877C79.4216 11.2855 80.0772 12.0249 80.5633 13.0059C81.0643 13.9722 81.3147 15.1508 81.3147 16.5417H73.2265C73.3001 17.2738 73.6169 17.8594 74.1767 18.2986C74.7366 18.7232 75.3701 18.9355 76.0772 18.9355C76.6813 18.9355 77.1748 18.8111 77.5579 18.5622C77.9409 18.2986 78.2356 17.9619 78.4418 17.5519L81.0495 18.5622C80.7401 19.1771 80.335 19.7115 79.8341 20.1654C79.3479 20.6046 78.766 20.9414 78.0883 21.1756C77.4106 21.4099 76.6371 21.527 75.7678 21.527ZM73.3811 14.3894H78.1545C78.1103 13.9356 77.963 13.5695 77.7126 13.2914C77.4621 13.0132 77.1675 12.8082 76.8286 12.6764C76.4898 12.5447 76.1583 12.4788 75.8341 12.4788C75.5247 12.4788 75.1859 12.5447 74.8176 12.6764C74.464 12.7936 74.1472 12.9912 73.8673 13.2694C73.6021 13.5476 73.4401 13.9209 73.3811 14.3894Z"/>
+          <path d="M82.4937 21.2635V10.2826H85.4107V12.3031C85.8675 11.6149 86.442 11.1025 87.1345 10.7658C87.8416 10.4144 88.5709 10.2387 89.3223 10.2387V13.0498C88.6446 13.0498 88.0037 13.1303 87.3997 13.2914C86.8103 13.4524 86.3315 13.716 85.9632 14.082C85.5949 14.448 85.4107 14.9165 85.4107 15.4875V21.2635H82.4937Z"/>
+          <path d="M90.8937 21.2635V10.2826H93.634L93.7666 11.776C94.1202 11.205 94.5695 10.7731 95.1146 10.4803C95.6744 10.1728 96.308 10.0191 97.0151 10.0191C97.8844 10.0191 98.6284 10.1947 99.2471 10.5461C99.8659 10.8975 100.337 11.4466 100.661 12.1933C100.986 12.9253 101.14 13.877 101.126 15.0483V21.2635H98.2085V15.6413C98.2085 14.8946 98.1201 14.3162 97.9433 13.9063C97.7812 13.4963 97.5455 13.2035 97.2361 13.0278C96.9267 12.8375 96.5658 12.7423 96.1533 12.7423C95.4019 12.7277 94.82 12.9546 94.4074 13.4231C94.0097 13.8916 93.8108 14.5871 93.8108 15.5095V21.2635H90.8937Z"/>
+          <path d="M103.196 21.2635V10.2826H105.936L106.069 11.7101C106.407 11.1538 106.842 10.7365 107.372 10.4583C107.903 10.1655 108.492 10.0191 109.14 10.0191C110.039 10.0191 110.79 10.2094 111.395 10.5901C112.013 10.9707 112.463 11.5564 112.743 12.347C113.067 11.6003 113.523 11.0293 114.113 10.634C114.702 10.224 115.387 10.0191 116.168 10.0191C117.464 10.0191 118.451 10.429 119.129 11.2489C119.807 12.0542 120.146 13.2987 120.146 14.9824V21.2635H117.229V15.6413C117.229 14.8946 117.148 14.3162 116.986 13.9063C116.824 13.4963 116.603 13.2035 116.323 13.0278C116.043 12.8375 115.711 12.7423 115.328 12.7423C114.621 12.7277 114.076 12.9546 113.693 13.4231C113.31 13.8916 113.118 14.5871 113.118 15.5095V21.2635H110.201V15.6413C110.201 14.8946 110.12 14.3162 109.958 13.9063C109.811 13.4963 109.59 13.2035 109.295 13.0278C109.015 12.8375 108.684 12.7423 108.301 12.7423C107.593 12.7277 107.048 12.9546 106.665 13.4231C106.297 13.8916 106.113 14.5871 106.113 15.5095V21.2635H103.196Z"/>
+          <path d="M126.946 21.527C125.856 21.527 124.891 21.2854 124.051 20.8023C123.211 20.3045 122.548 19.6237 122.062 18.7598C121.59 17.896 121.355 16.9004 121.355 15.773C121.355 14.6457 121.598 13.6501 122.084 12.7862C122.585 11.9224 123.263 11.2489 124.117 10.7658C124.986 10.268 125.981 10.0191 127.1 10.0191C128.073 10.0191 128.964 10.2753 129.774 10.7877C130.6 11.2855 131.255 12.0249 131.741 13.0059C132.242 13.9722 132.493 15.1508 132.493 16.5417H124.404C124.478 17.2738 124.795 17.8594 125.355 18.2986C125.915 18.7232 126.548 18.9355 127.255 18.9355C127.859 18.9355 128.353 18.8111 128.736 18.5622C129.119 18.2986 129.414 17.9619 129.62 17.5519L132.227 18.5622C131.918 19.1771 131.513 19.7115 131.012 20.1654C130.526 20.6046 129.944 20.9414 129.266 21.1756C128.588 21.4099 127.815 21.527 126.946 21.527ZM124.559 14.3894H129.332C129.288 13.9356 129.141 13.5695 128.891 13.2914C128.64 13.0132 128.345 12.8082 128.007 12.6764C127.668 12.5447 127.336 12.4788 127.012 12.4788C126.703 12.4788 126.364 12.5447 125.996 12.6764C125.642 12.7936 125.325 12.9912 125.045 13.2694C124.78 13.5476 124.618 13.9209 124.559 14.3894Z"/>
+          <path d="M133.93 21.2635V10.2826H136.67L136.803 11.776C137.156 11.205 137.606 10.7731 138.151 10.4803C138.711 10.1728 139.344 10.0191 140.051 10.0191C140.92 10.0191 141.664 10.1947 142.283 10.5461C142.902 10.8975 143.373 11.4466 143.698 12.1933C144.022 12.9253 144.176 13.877 144.162 15.0483V21.2635H141.245V15.6413C141.245 14.8946 141.156 14.3162 140.979 13.9063C140.817 13.4963 140.582 13.2035 140.272 13.0278C139.963 12.8375 139.602 12.7423 139.189 12.7423C138.438 12.7277 137.856 12.9546 137.444 13.4231C137.046 13.8916 136.847 14.5871 136.847 15.5095V21.2635H133.93Z"/>
+          <path d="M150.526 21.527C149.303 21.527 148.375 21.2269 147.742 20.6266C147.123 20.0263 146.813 19.1698 146.813 18.0571V12.7423H145.023V10.2826H146.813V6.85656H149.731V10.2826H152.493V12.7423H149.731V17.4202C149.731 17.8887 149.834 18.2474 150.04 18.4963C150.246 18.7306 150.548 18.8477 150.946 18.8477C151.093 18.8477 151.255 18.8184 151.432 18.7598C151.609 18.6866 151.793 18.5841 151.985 18.4524L153.001 20.6266C152.648 20.8901 152.25 21.1024 151.808 21.2635C151.381 21.4392 150.953 21.527 150.526 21.527Z"/>
+          <path d="M186.422 21.2635V5.89025H191.66C192.72 5.89025 193.649 6.0513 194.444 6.37341C195.24 6.69551 195.859 7.18599 196.3 7.84485C196.742 8.48906 196.963 9.29432 196.963 10.2606C196.963 10.8609 196.809 11.4173 196.499 11.9297C196.205 12.4275 195.785 12.8594 195.24 13.2255C195.962 13.5915 196.514 14.082 196.897 14.6969C197.295 15.2972 197.494 16.8711 197.494 16.8711C197.494 16.8711 197.28 18.6061 196.853 19.265C196.426 19.9238 195.829 20.4216 195.063 20.7584C194.297 21.0951 193.398 21.2635 192.367 21.2635H186.422ZM189.383 18.6061H192.08C192.801 18.6061 193.369 18.4304 193.781 18.079C194.194 17.713 194.4 17.2298 194.4 16.6296C194.4 16 194.172 15.5095 193.715 15.1581C193.258 14.7921 192.632 14.6091 191.836 14.6091H189.383V18.6061ZM189.383 12.1494H191.726C192.389 12.1494 192.912 11.981 193.295 11.6442C193.678 11.3075 193.87 10.8316 193.87 10.2167C193.87 9.60179 193.656 9.12595 193.229 8.7892C192.801 8.45245 192.22 8.28408 191.483 8.28408H189.383V12.1494Z"/>
+          <path d="M202.673 21.527C201.347 21.527 200.316 21.2342 199.58 20.6486C198.858 20.0629 198.497 19.2357 198.497 18.1669C198.497 16.9956 198.887 16.1171 199.668 15.5315C200.464 14.9312 201.576 14.631 203.005 14.631H205.613C205.509 13.9575 205.296 13.4451 204.972 13.0937C204.648 12.7277 204.184 12.5447 203.58 12.5447C203.108 12.5447 202.681 12.6472 202.298 12.8521C201.915 13.0571 201.591 13.3719 201.325 13.7965L198.762 12.918C198.968 12.4495 199.27 11.9956 199.668 11.5564C200.066 11.1025 200.581 10.7365 201.215 10.4583C201.863 10.1655 202.651 10.0191 203.58 10.0191C204.699 10.0191 205.627 10.2314 206.364 10.656C207.115 11.0805 207.668 11.6808 208.021 12.4568C208.39 13.2182 208.566 14.1259 208.552 15.1801L208.485 21.2635H205.767L205.723 19.9897C205.443 20.4875 205.045 20.8682 204.53 21.1317C204.029 21.3953 203.41 21.527 202.673 21.527ZM203.16 19.1112C203.631 19.1112 204.058 19.0014 204.441 18.7818C204.824 18.5622 205.126 18.2767 205.347 17.9253C205.568 17.5739 205.679 17.2079 205.679 16.8272V16.7833H204.021C203.064 16.7833 202.401 16.9004 202.033 17.1347C201.664 17.3543 201.48 17.6691 201.48 18.079C201.48 18.4011 201.627 18.6574 201.922 18.8477C202.217 19.0234 202.629 19.1112 203.16 19.1112Z"/>
+          <path d="M210.512 21.2635V10.2826H213.429V12.3031C213.886 11.6149 214.461 11.1025 215.153 10.7658C215.86 10.4144 216.59 10.2387 217.341 10.2387V13.0498C216.663 13.0498 216.022 13.1303 215.418 13.2914C214.829 13.4524 214.35 13.716 213.982 14.082C213.614 14.448 213.429 14.9165 213.429 15.4875V21.2635H210.512Z"/>
+          <path d="M224.7 21.527C223.948 21.527 223.293 21.3733 222.733 21.0658C222.173 20.7437 221.702 20.2898 221.318 19.7042L221.208 21.2635H218.446V5.89025H221.363V11.776C221.731 11.205 222.195 10.7731 222.755 10.4803C223.315 10.1728 223.963 10.0191 224.7 10.0191C225.716 10.0191 226.593 10.2533 227.329 10.7218C228.081 11.1904 228.663 11.8565 229.075 12.7204C229.488 13.5695 229.694 14.5871 229.694 15.773C229.694 16.9443 229.488 17.9619 229.075 18.8257C228.663 19.6896 228.081 20.3557 227.329 20.8242C226.593 21.2928 225.716 21.527 224.7 21.527ZM223.948 18.8697C224.479 18.8697 224.943 18.7379 225.34 18.4743C225.753 18.2108 226.077 17.8448 226.313 17.3763C226.549 16.9077 226.666 16.3733 226.666 15.773C226.666 15.1728 226.549 14.6384 226.313 14.1698C226.092 13.7013 225.775 13.3426 225.363 13.0937C224.965 12.8302 224.501 12.6984 223.97 12.6984C223.469 12.6984 223.02 12.8302 222.622 13.0937C222.225 13.3572 221.915 13.7233 221.694 14.1918C221.473 14.6457 221.363 15.1728 221.363 15.773C221.363 16.3733 221.473 16.9077 221.694 17.3763C221.915 17.8448 222.217 18.2108 222.6 18.4743C222.998 18.7379 223.447 18.8697 223.948 18.8697Z"/>
+          <path d="M234.674 21.527C233.348 21.527 232.317 21.2342 231.58 20.6486C230.858 20.0629 230.497 19.2357 230.497 18.1669C230.497 16.9956 230.887 16.1171 231.668 15.5315C232.464 14.9312 233.576 14.631 235.005 14.631H237.613C237.51 13.9575 237.296 13.4451 236.972 13.0937C236.648 12.7277 236.184 12.5447 235.58 12.5447C235.108 12.5447 234.681 12.6472 234.298 12.8521C233.915 13.0571 233.591 13.3719 233.326 13.7965L230.762 12.918C230.969 12.4495 231.271 11.9956 231.668 11.5564C232.066 11.1025 232.582 10.7365 233.215 10.4583C233.863 10.1655 234.652 10.0191 235.58 10.0191C236.7 10.0191 237.628 10.2314 238.364 10.656C239.116 11.0805 239.668 11.6808 240.022 12.4568C240.39 13.2182 240.567 14.1259 240.552 15.1801L240.486 21.2635H237.768L237.723 19.9897C237.443 20.4875 237.046 20.8682 236.53 21.1317C236.029 21.3953 235.41 21.527 234.674 21.527ZM235.16 19.1112C235.631 19.1112 236.059 19.0014 236.442 18.7818C236.825 18.5622 237.127 18.2767 237.348 17.9253C237.569 17.5739 237.679 17.2079 237.679 16.8272V16.7833H236.022C235.064 16.7833 234.401 16.9004 234.033 17.1347C233.665 17.3543 233.48 17.6691 233.48 18.079C233.48 18.4011 233.628 18.6574 233.922 18.8477C234.217 19.0234 234.63 19.1112 235.16 19.1112Z"/>
+          <path d="M246.758 21.527C245.742 21.527 244.858 21.2928 244.107 20.8242C243.37 20.3557 242.795 19.6896 242.383 18.8257C241.97 17.9619 241.764 16.9443 241.764 15.773C241.764 14.5871 241.97 13.5695 242.383 12.7204C242.795 11.8565 243.37 11.1904 244.107 10.7218C244.858 10.2533 245.742 10.0191 246.758 10.0191C247.48 10.0191 248.121 10.1728 248.681 10.4803C249.256 10.7731 249.72 11.1977 250.073 11.754V5.89025H252.99V21.2635H250.228L250.14 19.7262C249.771 20.2972 249.3 20.7437 248.725 21.0658C248.151 21.3733 247.495 21.527 246.758 21.527ZM247.51 18.8697C247.996 18.8697 248.423 18.7525 248.792 18.5183C249.175 18.2694 249.477 17.9253 249.698 17.4861C249.919 17.0468 250.044 16.549 250.073 15.9927V15.5534C250.044 14.9971 249.919 14.5066 249.698 14.082C249.477 13.6428 249.175 13.306 248.792 13.0717C248.409 12.8228 247.974 12.6984 247.488 12.6984C246.957 12.6984 246.486 12.8302 246.073 13.0937C245.676 13.3426 245.359 13.7013 245.123 14.1698C244.902 14.6384 244.792 15.1728 244.792 15.773C244.792 16.3733 244.909 16.9077 245.145 17.3763C245.381 17.8448 245.698 18.2108 246.095 18.4743C246.508 18.7379 246.979 18.8697 247.51 18.8697Z"/>
+          <path d="M260.409 21.527C259.289 21.527 258.287 21.2854 257.403 20.8023C256.534 20.3045 255.849 19.6237 255.348 18.7598C254.862 17.896 254.619 16.9004 254.619 15.773C254.619 14.6457 254.862 13.6501 255.348 12.7862C255.834 11.9224 256.512 11.2489 257.381 10.7658C258.25 10.268 259.245 10.0191 260.364 10.0191C261.499 10.0191 262.501 10.268 263.37 10.7658C264.239 11.2489 264.917 11.9224 265.403 12.7862C265.889 13.6501 266.132 14.6457 266.132 15.773C266.132 16.9004 265.889 17.896 265.403 18.7598C264.917 19.6237 264.239 20.3045 263.37 20.8023C262.515 21.2854 261.528 21.527 260.409 21.527ZM260.409 18.8477C260.954 18.8477 261.433 18.7159 261.845 18.4524C262.258 18.1888 262.574 17.8301 262.795 17.3763C263.031 16.9077 263.149 16.3733 263.149 15.773C263.149 15.1728 263.031 14.6457 262.795 14.1918C262.56 13.7233 262.228 13.3572 261.801 13.0937C261.388 12.8302 260.91 12.6984 260.364 12.6984C259.834 12.6984 259.355 12.8302 258.928 13.0937C258.515 13.3572 258.191 13.7233 257.956 14.1918C257.72 14.6457 257.602 15.1728 257.602 15.773C257.602 16.3733 257.72 16.9077 257.956 17.3763C258.191 17.8301 258.523 18.1888 258.95 18.4524C259.377 18.7159 259.863 18.8477 260.409 18.8477Z"/>
+          <path d="M271.536 21.527C270.829 21.527 270.166 21.4245 269.547 21.2196C268.928 20.9999 268.383 20.6925 267.912 20.2972C267.44 19.8872 267.072 19.3894 266.807 18.8038L269.304 17.6618C269.525 18.0131 269.827 18.3206 270.21 18.5841C270.593 18.833 271.035 18.9575 271.536 18.9575C272.022 18.9575 272.398 18.8916 272.663 18.7598C272.928 18.6134 273.061 18.4085 273.061 18.1449C273.061 17.8814 272.95 17.691 272.729 17.5739C272.523 17.4421 272.236 17.3323 271.867 17.2445L270.851 16.9809C269.79 16.7028 268.95 16.2635 268.332 15.6632C267.728 15.0483 267.426 14.3455 267.426 13.5549C267.426 12.4275 267.787 11.5564 268.508 10.9415C269.245 10.3265 270.284 10.0191 271.624 10.0191C272.317 10.0191 272.958 10.1215 273.547 10.3265C274.151 10.5315 274.667 10.817 275.094 11.183C275.521 11.5491 275.816 11.9737 275.978 12.4568L273.569 13.5549C273.466 13.2621 273.216 13.0278 272.818 12.8521C272.42 12.6618 272.022 12.5666 271.624 12.5666C271.227 12.5666 270.917 12.6545 270.696 12.8302C270.49 12.9912 270.387 13.2182 270.387 13.511C270.387 13.7013 270.49 13.8624 270.696 13.9941C270.902 14.1113 271.197 14.2138 271.58 14.3016L273.017 14.653C273.739 14.8287 274.313 15.1142 274.74 15.5095C275.182 15.8902 275.499 16.3221 275.691 16.8052C275.897 17.2738 276 17.735 276 18.1888C276 18.8477 275.801 19.4333 275.403 19.9458C275.02 20.4436 274.49 20.8316 273.812 21.1098C273.149 21.3879 272.39 21.527 271.536 21.527Z"/>
+          <path d="M165.302 21.527C164.182 21.527 163.18 21.2855 162.296 20.8023C161.427 20.3045 160.742 19.6237 160.241 18.7598C159.755 17.896 159.512 16.9004 159.512 15.773C159.512 14.6457 159.755 13.6501 160.241 12.7862C160.727 11.9224 161.405 11.2489 162.274 10.7658C163.144 10.268 164.138 10.0191 165.258 10.0191C166.392 10.0191 167.394 10.268 168.263 10.7658C169.132 11.2489 169.81 11.9224 170.296 12.7862C170.782 13.6501 171.026 14.6457 171.026 15.773C171.026 16.9004 170.782 17.896 170.296 18.7598C169.81 19.6237 169.132 20.3045 168.263 20.8023C167.409 21.2855 166.422 21.527 165.302 21.527ZM165.302 18.8477C165.847 18.8477 166.326 18.7159 166.738 18.4524C167.151 18.1888 167.468 17.8301 167.689 17.3763C167.924 16.9077 168.042 16.3733 168.042 15.773C168.042 15.1728 167.924 14.6457 167.689 14.1918C167.453 13.7233 167.121 13.3572 166.694 13.0937C166.282 12.8302 165.803 12.6984 165.258 12.6984C164.727 12.6984 164.249 12.8302 163.821 13.0937C163.409 13.3572 163.085 13.7233 162.849 14.1918C162.613 14.6457 162.495 15.1728 162.495 15.773C162.495 16.3733 162.613 16.9077 162.849 17.3763C163.085 17.8301 163.416 18.1888 163.843 18.4524C164.271 18.7159 164.757 18.8477 165.302 18.8477Z"/>
+          <path d="M173.144 21.2635V12.6105H171.309V10.2826H173.144V9.18451C173.144 8.01321 173.446 7.10546 174.05 6.46125C174.654 5.8024 175.574 5.47297 176.812 5.47297C177.239 5.47297 177.689 5.54618 178.16 5.69259C178.646 5.839 179.088 6.0147 179.486 6.21967L178.403 8.30604C178.167 8.18891 177.954 8.10106 177.762 8.04249C177.571 7.98393 177.394 7.95465 177.232 7.95465C176.834 7.95465 176.539 8.09374 176.348 8.37192C176.156 8.63547 176.061 9.06738 176.061 9.66767V10.2826H178.779V12.6105H176.061V21.2635H173.144Z"/>
+          <path d="M12.5786 0C11.6253 2.46943 10.6536 5.03986 8.57466 7.00774C9.21998 6.80573 10.3493 6.62461 11.0753 6.64203V17.0283L7.988 17.4636C7.878 17.4532 7.84133 17.2895 7.84133 17.0666C7.54434 13.8413 6.74135 11.1316 5.81736 8.32779C5.75136 7.94466 4.58171 6.48181 5.4837 6.73955C5.5937 6.75348 6.80002 7.2202 6.60935 6.99729C4.96671 5.38119 2.56508 4.21788 0.233112 3.87306C0.0277812 3.8243 -0.0932171 3.92183 0.0901136 4.14822C3.18474 8.6726 5.77336 14.012 5.75136 20.3475C6.95401 20.3475 9.86897 19.6718 11.0753 19.6718V27H12.5969L12.9453 6.53406L12.5786 0Z"/>
+          <path d="M12.5786 0C13.5319 2.46943 14.5036 5.03986 16.5825 7.00774C15.9372 6.80573 14.8079 6.62461 14.0819 6.64203V17.0283L17.1692 17.4636C17.2792 17.4532 17.3159 17.2895 17.3159 17.0666C17.6129 13.8413 18.4158 11.1316 19.3398 8.32779C19.4058 7.94466 20.5755 6.48181 19.6735 6.73955C19.5635 6.75348 18.3572 7.2202 18.5478 6.99729C20.1905 5.38119 22.5921 4.21788 24.9241 3.87306C25.1294 3.8243 25.2504 3.92183 25.0671 4.14822C21.9725 8.6726 19.3838 14.012 19.4058 20.3475C18.2032 20.3475 15.2882 19.6718 15.2882 19.6718V27H12.5603L12.2119 6.53406L12.5786 0Z"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Alpha banner -->
+<div class="bg-bb-blue-10 border-b border-bb-blue-40/40">
+  <div class="container">
+    <div class="stage py-2 text-[0.9rem]">
+      This service is in <a href="#" class="link-bb font-medium">Alpha</a>. Your feedback helps us improve it.
+    </div>
+  </div>
+</div>
+
+<!-- Main -->
+<main>
+  <div class="container">
+    <div class="stage px-4 py-6 sm:py-8" id="app" role="region" aria-live="polite"></div>
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-bb-blue-100 text-bb-white-00 mt-8">
+  <div class="container">
+    <div class="stage py-8 text-[0.95rem]">
+      <p class="font-medium mb-1">National Insurance Scheme of Barbados</p>
+      <p class="text-bb-white-00/80 mb-4">A service built with workers, for workers.</p>
+      <div class="flex flex-wrap gap-x-5 gap-y-2 mb-5">
+        <a href="#" class="underline underline-offset-2 hover:no-underline">Privacy</a>
+        <a href="#" class="underline underline-offset-2 hover:no-underline">Accessibility</a>
+        <a href="#" class="underline underline-offset-2 hover:no-underline">Contact NIS</a>
+      </div>
+      <p class="text-bb-white-00/70 text-[0.85rem]">&copy; 2026 Government of Barbados</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ─────────────────────────────────────────────────────────
+   State + small icon library + helpers
+   ───────────────────────────────────────────────────────── */
+const state = {
+  screen: 'landing',
+  data: {
+    workerType: null,
+    monthlyEarnings: 1500,
+    incomeVariability: null,
+    firstName: '',
+    contact: '',
+    contactMethod: null,
+    alreadyRegistered: null,
+  },
+  errors: {},
+};
+
+const FLOW = ['landing', 'worker-type', 'benefits', 'estimator', 'register', 'confirmation'];
+const FLOW_STEPS = ['worker-type', 'benefits', 'estimator', 'register']; // shown in progress bar
+
+const ICONS = {
+  delivery: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="w-7 h-7"><circle cx="6" cy="17" r="2.5"/><circle cx="18" cy="17" r="2.5"/><path d="M3 17h.5M8.5 17h7M20.5 17h.5M14 6h3l3 6"/><path d="M5 13l2-7h7l3 11"/></svg>`,
+  freelance: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="w-7 h-7"><path d="M3 21l3-3 9-9 3 3-9 9-3 0z"/><path d="M14 6l4 4M16 4l4 4-2 2"/></svg>`,
+  remote: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="w-7 h-7"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>`,
+  rental: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="w-7 h-7"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>`,
+  casual: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="w-7 h-7"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>`,
+  other: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="w-7 h-7"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>`,
+
+  sickness: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M12 21s-7-4.35-7-10a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 5.65-7 10-7 10z" stroke="none" fill="currentColor" opacity=".12"/><path d="M3 13h4l2-4 3 8 2-4h7"/></svg>`,
+  injury: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M12 2l8 3v6c0 5-3.5 9.5-8 11-4.5-1.5-8-6-8-11V5l8-3z" fill="currentColor" opacity=".12"/><path d="M12 2l8 3v6c0 5-3.5 9.5-8 11-4.5-1.5-8-6-8-11V5l8-3z"/><path d="M9 12l2 2 4-4"/></svg>`,
+  pension: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M12 3v18M5 21h14" /><path d="M12 11s-4-1-4-4a4 4 0 0 1 8 0c0 3-4 4-4 4z" fill="currentColor" opacity=".12"/></svg>`,
+  funeral: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M12 22s-7-5-7-12a5 5 0 0 1 7-4.6A5 5 0 0 1 19 10c0 7-7 12-7 12z" fill="currentColor" opacity=".12"/><path d="M12 22s-7-5-7-12a5 5 0 0 1 7-4.6A5 5 0 0 1 19 10c0 7-7 12-7 12z"/></svg>`,
+  family: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3 2.5-5 6-5s6 2 6 5M15 20c0-2 1.5-4 4-4s4 2 4 4"/></svg>`,
+
+  check: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M4 12l5 5 11-11"/></svg>`,
+  arrowLeft: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>`,
+  arrowRight: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>`,
+  shield: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M12 2l8 3v6c0 5-3.5 9.5-8 11-4.5-1.5-8-6-8-11V5l8-3z"/></svg>`,
+  lock: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>`,
+};
+
+const WORKER_TYPES = [
+  { id: 'delivery',  title: 'Delivery or ride-share',     example: 'e.g. food delivery, taxi, ride apps',           icon: 'delivery' },
+  { id: 'freelance', title: 'Freelance or creative work', example: 'e.g. design, writing, photography, music',      icon: 'freelance' },
+  { id: 'remote',    title: 'Remote work for overseas',   example: 'e.g. contract work for companies abroad',       icon: 'remote' },
+  { id: 'rental',    title: 'Renting property or stays',  example: 'e.g. Airbnb, short stays, room rentals',        icon: 'rental' },
+  { id: 'casual',    title: 'Casual jobs or side hustles',example: 'e.g. cleaning, hair, babysitting, vending',     icon: 'casual' },
+  { id: 'other',     title: 'Something else',              example: 'Tell us a bit more on the next screen',        icon: 'other' },
+];
+
+const BENEFITS = [
+  { id: 'sickness', title: 'Sickness benefit',       desc: 'Money to live on if you cannot work because you are unwell.',              icon: 'sickness' },
+  { id: 'injury',   title: 'Injury at work',          desc: 'Support if you get hurt while doing your job — including medical care.', icon: 'injury' },
+  { id: 'pension',  title: 'Pension when you retire', desc: 'Income for later in life, built up from what you put in now.',           icon: 'pension' },
+  { id: 'funeral',  title: 'Funeral grant',           desc: 'A one-time payment to help your family with funeral costs.',             icon: 'funeral' },
+  { id: 'family',   title: 'Support for dependants',  desc: 'Help for your children or partner if something happens to you.',         icon: 'family' },
+];
+
+const fmtMoney = n => 'BDS$' + n.toLocaleString('en-BB', { maximumFractionDigits: 0 });
+
+/* ─────────────────────────────────────────────────────────
+   Page templates
+   ───────────────────────────────────────────────────────── */
+
+function progressBar(currentId) {
+  const idx = FLOW_STEPS.indexOf(currentId);
+  if (idx === -1) return '';
+  const total = FLOW_STEPS.length;
+  return `
+    <div class="mb-6" aria-label="Progress">
+      <div class="flex items-center justify-between mb-2 text-[0.85rem] text-bb-mid-grey-00">
+        <span class="font-medium text-bb-blue-00">Step ${idx + 1} of ${total}</span>
+        <span>${Math.round(((idx + 1) / total) * 100)}% complete</span>
+      </div>
+      <div class="flex gap-1.5" role="progressbar" aria-valuenow="${idx + 1}" aria-valuemin="1" aria-valuemax="${total}">
+        ${FLOW_STEPS.map((_, i) => `
+          <div class="h-1.5 flex-1 rounded-full ${i <= idx ? 'bg-bb-teal-00' : 'bg-bb-grey-00'}"></div>
+        `).join('')}
+      </div>
+    </div>`;
+}
+
+function backBtn(target) {
+  return `
+    <button type="button" onclick="nav('${target}')"
+      class="link-bb inline-flex items-center gap-1.5 mb-4 px-2 py-2 -ml-2 rounded text-[1rem]">
+      ${ICONS.arrowLeft}<span>Back</span>
+    </button>`;
+}
+
+/* SCREEN 1 — Landing */
+function screenLanding() {
+  return `
+    <div class="screen">
+      <div class="inline-flex items-center gap-2 mb-4 px-3 py-1.5 rounded-full bg-bb-teal-10 text-bb-teal-00 text-[0.85rem] font-medium">
+        ${ICONS.shield}<span>From the National Insurance Scheme</span>
+      </div>
+
+      <h1 class="font-bold text-[2rem] sm:text-[2.5rem] leading-[1.15] tracking-tight text-bb-blue-00 mb-4">
+        Protect yourself and your family while working independently.
+      </h1>
+
+      <p class="text-[1.125rem] text-bb-mid-grey-00 mb-6">
+        If you earn your own way — driving, delivering, freelancing, renting, hustling — you can join NIS too.
+        It is the simplest way to look after yourself when life happens.
+      </p>
+
+      <div class="rounded-2xl border border-bb-blue-10 bg-bb-blue-10/40 p-5 mb-6">
+        <p class="font-semibold text-bb-blue-00 mb-3">What NIS can help with</p>
+        <ul class="space-y-2.5">
+          ${[
+            ['sickness', 'Money to live on if you get sick'],
+            ['injury', 'Support if you get hurt on the job'],
+            ['pension', 'A pension when you retire'],
+            ['family', 'Help for your family if something happens to you'],
+          ].map(([icon, text]) => `
+            <li class="flex items-start gap-3">
+              <span class="text-bb-teal-00 mt-0.5">${ICONS[icon]}</span>
+              <span class="text-[1.05rem] text-bb-blue-00">${text}</span>
+            </li>
+          `).join('')}
+        </ul>
+      </div>
+
+      <div class="space-y-3 mb-6">
+        <button type="button" onclick="nav('worker-type')"
+          class="btn-primary w-full rounded-lg px-6 py-4 text-[1.125rem] font-semibold inline-flex items-center justify-center gap-2">
+          Check if you can register ${ICONS.arrowRight}
+        </button>
+        <button type="button" onclick="nav('benefits')"
+          class="btn-secondary w-full rounded-lg px-6 py-4 text-[1.125rem] font-semibold">
+          Learn how NIS can support you
+        </button>
+      </div>
+
+      <p class="text-[0.95rem] text-bb-mid-grey-00 flex items-center gap-2">
+        ${ICONS.lock}
+        <span>Designed for people earning independently in Barbados. Takes about 5 minutes.</span>
+      </p>
+    </div>`;
+}
+
+/* SCREEN 2 — Worker type */
+function screenWorkerType() {
+  return `
+    <div class="screen">
+      ${backBtn('landing')}
+      ${progressBar('worker-type')}
+
+      <h1 class="font-bold text-[1.75rem] sm:text-[2rem] leading-[1.2] text-bb-blue-00 mb-2">
+        How do you usually earn income?
+      </h1>
+      <p class="text-[1.05rem] text-bb-mid-grey-00 mb-6">
+        Choose the one that fits you best. You can change this later.
+      </p>
+
+      <div class="space-y-3 mb-6" role="radiogroup" aria-label="How you earn income">
+        ${WORKER_TYPES.map(w => {
+          const selected = state.data.workerType === w.id;
+          return `
+            <button type="button" role="radio" aria-checked="${selected}"
+              onclick="selectWorker('${w.id}')"
+              class="selectable w-full text-left rounded-xl border-2 border-bb-grey-00 bg-white p-4 flex items-center gap-4 transition-all hover:border-bb-teal-00 hover:bg-bb-teal-10/40 focus:outline-none focus-visible:ring-4 focus-visible:ring-bb-teal-100 ${selected ? 'selected' : ''}">
+              <span class="shrink-0 inline-flex items-center justify-center w-12 h-12 rounded-full bg-bb-blue-10 text-bb-blue-00">
+                ${ICONS[w.icon]}
+              </span>
+              <span class="flex-1 min-w-0">
+                <span class="block font-semibold text-[1.05rem] text-bb-blue-00">${w.title}</span>
+                <span class="block text-[0.95rem] text-bb-mid-grey-00 mt-0.5">${w.example}</span>
+              </span>
+              <span class="shrink-0 w-7 h-7 rounded-full inline-flex items-center justify-center ${selected ? 'bg-bb-teal-00 text-white' : 'border-2 border-bb-grey-00 text-transparent'}">
+                ${ICONS.check}
+              </span>
+            </button>`;
+        }).join('')}
+      </div>
+
+      <button type="button" onclick="nextFromWorkerType()"
+        ${state.data.workerType ? '' : 'disabled'}
+        class="btn-primary w-full rounded-lg px-6 py-4 text-[1.125rem] font-semibold inline-flex items-center justify-center gap-2">
+        Continue ${ICONS.arrowRight}
+      </button>
+    </div>`;
+}
+
+/* SCREEN 3 — Benefits */
+function screenBenefits() {
+  return `
+    <div class="screen">
+      ${backBtn(state.data.workerType ? 'worker-type' : 'landing')}
+      ${progressBar('benefits')}
+
+      <h1 class="font-bold text-[1.75rem] sm:text-[2rem] leading-[1.2] text-bb-blue-00 mb-2">
+        Here's how NIS protects you
+      </h1>
+      <p class="text-[1.05rem] text-bb-mid-grey-00 mb-6">
+        Think of NIS as a safety net you build up over time. If life takes a turn, it helps you and the people you love.
+      </p>
+
+      <div class="rounded-2xl bg-bb-yellow-10 border border-bb-yellow-40 p-4 mb-6">
+        <p class="text-[1rem] text-bb-blue-00 leading-snug">
+          <strong>Imagine this:</strong> you get sick and cannot work for three weeks. With NIS, you can still cover rent, food, and bills.
+        </p>
+      </div>
+
+      <div class="space-y-3 mb-6">
+        ${BENEFITS.map(b => `
+          <div class="rounded-xl border border-bb-grey-00 bg-white p-4 flex items-start gap-4">
+            <span class="shrink-0 inline-flex items-center justify-center w-11 h-11 rounded-full bg-bb-teal-10 text-bb-teal-00">
+              ${ICONS[b.icon]}
+            </span>
+            <div class="flex-1 min-w-0">
+              <p class="font-semibold text-[1.05rem] text-bb-blue-00 mb-1">${b.title}</p>
+              <p class="text-[0.95rem] text-bb-mid-grey-00">${b.desc}</p>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+
+      <button type="button" onclick="nav('estimator')"
+        class="btn-primary w-full rounded-lg px-6 py-4 text-[1.125rem] font-semibold inline-flex items-center justify-center gap-2">
+        Estimate my contributions ${ICONS.arrowRight}
+      </button>
+      <button type="button" onclick="nav('landing')"
+        class="mt-3 w-full text-bb-teal-00 underline underline-offset-2 py-3 text-[1rem] hover:no-underline">
+        Take me back to the start
+      </button>
+    </div>`;
+}
+
+/* SCREEN 4 — Estimator */
+function screenEstimator() {
+  const earnings = state.data.monthlyEarnings;
+  const lowRate = 0.05;
+  const highRate = 0.07;
+  const low = Math.round(earnings * lowRate);
+  const high = Math.round(earnings * highRate);
+  const weekly = Math.round((low + high) / 2 / 4);
+  const pct = Math.min(100, Math.max(0, (earnings / 5000) * 100));
+
+  return `
+    <div class="screen">
+      ${backBtn('benefits')}
+      ${progressBar('estimator')}
+
+      <h1 class="font-bold text-[1.75rem] sm:text-[2rem] leading-[1.2] text-bb-blue-00 mb-2">
+        See what you might put in
+      </h1>
+      <p class="text-[1.05rem] text-bb-mid-grey-00 mb-6">
+        This is just an estimate to help you plan. Nothing here is a bill.
+      </p>
+
+      <div class="rounded-2xl border border-bb-grey-00 bg-white p-5 mb-5">
+        <label for="earnings" class="block font-semibold text-bb-blue-00 mb-1">
+          About how much do you earn each month?
+        </label>
+        <p class="text-[0.9rem] text-bb-mid-grey-00 mb-4">A rough number is fine. Drag the slider or type below.</p>
+
+        <div class="flex items-baseline gap-2 mb-4">
+          <span class="text-[2rem] font-bold text-bb-blue-00 tabular-nums">${fmtMoney(earnings)}</span>
+          <span class="text-bb-mid-grey-00">/ month</span>
+        </div>
+
+        <input type="range" id="earnings" min="0" max="5000" step="50" value="${earnings}"
+          oninput="updateEarnings(this.value)"
+          aria-label="Estimated monthly earnings in Barbadian dollars"
+          style="background-size: ${pct}% 100%" />
+
+        <div class="flex justify-between mt-2 text-[0.8rem] text-bb-mid-grey-00 tabular-nums">
+          <span>BDS$0</span>
+          <span>BDS$5,000+</span>
+        </div>
+
+        <div class="mt-4">
+          <label for="earnings-typed" class="sr-only">Or type your monthly earnings</label>
+          <div class="relative inline-flex w-full rounded-md border-2 border-bb-grey-00 items-center bg-white focus-within:border-bb-teal-00 focus-within:ring-4 focus-within:ring-bb-teal-100">
+            <span class="pl-3 text-bb-mid-grey-00">BDS$</span>
+            <input id="earnings-typed" type="number" inputmode="numeric" min="0" max="20000"
+              value="${earnings}" oninput="updateEarnings(this.value)"
+              class="w-full p-3 outline-none rounded-[inherit] text-[1.05rem]" />
+          </div>
+        </div>
+      </div>
+
+      <fieldset class="rounded-2xl border border-bb-grey-00 bg-white p-5 mb-5">
+        <legend class="font-semibold text-bb-blue-00 px-2">How often does your income change?</legend>
+        <p class="text-[0.9rem] text-bb-mid-grey-00 mb-3 mt-1">It is okay if it varies — contributions can flex too.</p>
+        <div class="space-y-2.5" role="radiogroup">
+          ${[
+            { id: 'steady', label: 'Pretty steady most months' },
+            { id: 'some',   label: 'Some ups and downs' },
+            { id: 'a-lot',  label: 'Changes a lot month to month' },
+          ].map(o => {
+            const selected = state.data.incomeVariability === o.id;
+            return `
+              <button type="button" role="radio" aria-checked="${selected}"
+                onclick="selectVariability('${o.id}')"
+                class="selectable w-full text-left rounded-lg border-2 border-bb-grey-00 bg-white p-3 flex items-center gap-3 transition-all hover:border-bb-teal-00 hover:bg-bb-teal-10/40 focus:outline-none focus-visible:ring-4 focus-visible:ring-bb-teal-100 ${selected ? 'selected' : ''}">
+                <span class="shrink-0 w-6 h-6 rounded-full inline-flex items-center justify-center ${selected ? 'bg-bb-teal-00 text-white' : 'border-2 border-bb-grey-00 text-transparent'}">
+                  ${ICONS.check}
+                </span>
+                <span class="text-[1rem] text-bb-blue-00">${o.label}</span>
+              </button>`;
+          }).join('')}
+        </div>
+      </fieldset>
+
+      <div class="rounded-2xl bg-bb-teal-00 text-white p-5 mb-6">
+        <p class="text-[0.95rem] uppercase tracking-wide text-bb-teal-40 font-semibold mb-1">Your estimated contribution</p>
+        <p class="text-[1.75rem] font-bold tabular-nums">${fmtMoney(low)} – ${fmtMoney(high)}<span class="text-[1rem] font-normal text-bb-teal-40"> / month</span></p>
+        <p class="text-[0.95rem] text-white/90 mt-2">That's about <strong class="tabular-nums">${fmtMoney(weekly)}</strong> a week. You only contribute on what you actually earn.</p>
+      </div>
+
+      <button type="button" onclick="nav('register')"
+        class="btn-primary w-full rounded-lg px-6 py-4 text-[1.125rem] font-semibold inline-flex items-center justify-center gap-2">
+        Continue ${ICONS.arrowRight}
+      </button>
+      <p class="text-center text-[0.85rem] text-bb-mid-grey-00 mt-3">
+        Estimates use general NIS rates and may change. The next step does not commit you to anything.
+      </p>
+    </div>`;
+}
+
+/* SCREEN 5 — Register interest */
+function screenRegister() {
+  const e = state.errors;
+  const d = state.data;
+  const workerLabel = (WORKER_TYPES.find(w => w.id === d.workerType) || {}).title || '';
+
+  return `
+    <div class="screen">
+      ${backBtn('estimator')}
+      ${progressBar('register')}
+
+      <h1 class="font-bold text-[1.75rem] sm:text-[2rem] leading-[1.2] text-bb-blue-00 mb-2">
+        Tell us where to reach you
+      </h1>
+      <p class="text-[1.05rem] text-bb-mid-grey-00 mb-5">
+        We will only use this to follow up about NIS protection for gig workers. No spam. No tax forms.
+      </p>
+
+      <div class="rounded-2xl bg-bb-green-10 border border-bb-green-40 p-4 mb-6 flex items-start gap-3">
+        <span class="text-bb-green-00 shrink-0 mt-0.5">${ICONS.lock}</span>
+        <p class="text-[0.95rem] text-bb-blue-00">
+          Your information stays with NIS. We will not share it for tax, benefits checks, or any other purpose.
+        </p>
+      </div>
+
+      ${Object.keys(e).length ? `
+        <div class="rounded-lg border-2 border-bb-red-00 bg-bb-red-10 p-4 mb-6" role="alert" tabindex="-1" id="error-summary">
+          <p class="font-semibold text-bb-red-00 mb-2">There is a problem</p>
+          <ul class="space-y-1 list-disc pl-5">
+            ${Object.entries(e).map(([id, msg]) => `<li><a href="#${id}" class="text-bb-red-00 underline">${msg}</a></li>`).join('')}
+          </ul>
+        </div>
+      ` : ''}
+
+      <form novalidate onsubmit="submitForm(event)" class="space-y-5">
+
+        <div>
+          <label for="firstName" class="block font-semibold text-bb-blue-00 mb-1">First name</label>
+          <p class="text-[0.9rem] text-bb-mid-grey-00 mb-2">So we know what to call you.</p>
+          <div class="relative inline-flex w-full rounded-md border-2 ${e.firstName ? 'border-bb-red-00' : 'border-bb-black-00'} items-center bg-white focus-within:ring-4 focus-within:ring-bb-teal-100">
+            <input id="firstName" name="firstName" type="text" autocomplete="given-name"
+              value="${d.firstName.replace(/"/g, '&quot;')}"
+              oninput="state.data.firstName = this.value"
+              class="w-full p-3.5 outline-none rounded-[inherit] text-[1.05rem]" />
+          </div>
+          ${e.firstName ? `<p class="mt-1 text-bb-red-00 text-[0.95rem]">${e.firstName}</p>` : ''}
+        </div>
+
+        <div>
+          <label for="contact" class="block font-semibold text-bb-blue-00 mb-1">Phone number or email</label>
+          <p class="text-[0.9rem] text-bb-mid-grey-00 mb-2">Whichever is easiest for you. We will only message about this service.</p>
+          <div class="relative inline-flex w-full rounded-md border-2 ${e.contact ? 'border-bb-red-00' : 'border-bb-black-00'} items-center bg-white focus-within:ring-4 focus-within:ring-bb-teal-100">
+            <input id="contact" name="contact" type="text"
+              value="${d.contact.replace(/"/g, '&quot;')}"
+              oninput="state.data.contact = this.value"
+              placeholder="e.g. 246-555-1234 or you@example.com"
+              class="w-full p-3.5 outline-none rounded-[inherit] text-[1.05rem] placeholder:text-bb-mid-grey-00/70" />
+          </div>
+          ${e.contact ? `<p class="mt-1 text-bb-red-00 text-[0.95rem]">${e.contact}</p>` : ''}
+        </div>
+
+        <fieldset>
+          <legend class="block font-semibold text-bb-blue-00 mb-2">How would you prefer to hear from us?</legend>
+          <div class="grid grid-cols-3 gap-2" role="radiogroup">
+            ${[
+              { id: 'whatsapp', label: 'WhatsApp' },
+              { id: 'sms',      label: 'Text' },
+              { id: 'email',    label: 'Email' },
+            ].map(o => {
+              const selected = d.contactMethod === o.id;
+              return `
+                <button type="button" role="radio" aria-checked="${selected}"
+                  onclick="state.data.contactMethod='${o.id}'; render()"
+                  class="selectable rounded-lg border-2 border-bb-grey-00 bg-white py-3 px-2 text-[1rem] font-medium text-bb-blue-00 transition-all hover:border-bb-teal-00 hover:bg-bb-teal-10/40 focus:outline-none focus-visible:ring-4 focus-visible:ring-bb-teal-100 ${selected ? 'selected' : ''}">
+                  ${o.label}
+                </button>`;
+            }).join('')}
+          </div>
+          ${e.contactMethod ? `<p class="mt-2 text-bb-red-00 text-[0.95rem]">${e.contactMethod}</p>` : ''}
+        </fieldset>
+
+        <div>
+          <label for="workCategory" class="block font-semibold text-bb-blue-00 mb-1">Work category</label>
+          <p class="text-[0.9rem] text-bb-mid-grey-00 mb-2">From the question earlier — you can change it here.</p>
+          <div class="relative inline-flex w-full rounded-md border-2 border-bb-black-00 items-center bg-white focus-within:ring-4 focus-within:ring-bb-teal-100">
+            <select id="workCategory" onchange="state.data.workerType = this.value"
+              class="w-full p-3.5 outline-none rounded-[inherit] text-[1.05rem] bg-transparent">
+              ${WORKER_TYPES.map(w => `
+                <option value="${w.id}" ${w.id === d.workerType ? 'selected' : ''}>${w.title}</option>
+              `).join('')}
+            </select>
+          </div>
+        </div>
+
+        <fieldset>
+          <legend class="block font-semibold text-bb-blue-00 mb-1">Are you already registered with NIS?</legend>
+          <p class="text-[0.9rem] text-bb-mid-grey-00 mb-2">Optional — choose if you know.</p>
+          <div class="grid grid-cols-3 gap-2" role="radiogroup">
+            ${[
+              { id: 'yes',   label: 'Yes' },
+              { id: 'no',    label: 'No' },
+              { id: 'unsure',label: 'Not sure' },
+            ].map(o => {
+              const selected = d.alreadyRegistered === o.id;
+              return `
+                <button type="button" role="radio" aria-checked="${selected}"
+                  onclick="state.data.alreadyRegistered='${o.id}'; render()"
+                  class="selectable rounded-lg border-2 border-bb-grey-00 bg-white py-3 px-2 text-[1rem] font-medium text-bb-blue-00 transition-all hover:border-bb-teal-00 hover:bg-bb-teal-10/40 focus:outline-none focus-visible:ring-4 focus-visible:ring-bb-teal-100 ${selected ? 'selected' : ''}">
+                  ${o.label}
+                </button>`;
+            }).join('')}
+          </div>
+        </fieldset>
+
+        <button type="submit"
+          class="btn-primary w-full rounded-lg px-6 py-4 text-[1.125rem] font-semibold inline-flex items-center justify-center gap-2 mt-2">
+          Submit
+        </button>
+        <p class="text-center text-[0.85rem] text-bb-mid-grey-00">
+          By submitting, you agree we can contact you about this service.
+        </p>
+      </form>
+    </div>`;
+}
+
+/* SCREEN 6 — Confirmation */
+function screenConfirmation() {
+  const ref = window.__refNumber || ('GWP-' + Math.random().toString(36).substring(2, 8).toUpperCase());
+  return `
+    <div class="screen">
+      <div class="bg-bb-teal-00 text-white p-6 sm:p-7 rounded-2xl mb-6">
+        <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/15 mb-4">
+          ${ICONS.check}
+        </div>
+        <h1 class="font-bold text-[1.75rem] sm:text-[2rem] leading-[1.2] mb-2">
+          Thanks${state.data.firstName ? ', ' + state.data.firstName.split(' ')[0].replace(/[<>]/g, '') : ''}.
+        </h1>
+        <p class="text-[1.05rem] text-white/90 mb-5">
+          We got your details. Someone from NIS will reach out within 5 working days.
+        </p>
+        <div class="bg-white/10 rounded-lg p-3">
+          <p class="text-[0.85rem] uppercase tracking-wide text-bb-teal-40 font-semibold">Your reference</p>
+          <p class="text-[1.5rem] font-bold tabular-nums">${ref}</p>
+        </div>
+      </div>
+
+      <h2 class="font-bold text-[1.25rem] text-bb-blue-00 mb-3">What happens next</h2>
+      <ol class="space-y-3 mb-6">
+        ${[
+          'We send a friendly message to confirm we have your details.',
+          'A team member reaches out by your preferred method to answer questions.',
+          'When you are ready, they help you complete registration — there is no rush.',
+        ].map((step, i) => `
+          <li class="flex items-start gap-3">
+            <span class="shrink-0 inline-flex items-center justify-center w-8 h-8 rounded-full bg-bb-blue-10 text-bb-blue-00 font-bold tabular-nums">${i + 1}</span>
+            <span class="text-[1.05rem] text-bb-blue-00 pt-1">${step}</span>
+          </li>
+        `).join('')}
+      </ol>
+
+      <div class="rounded-xl border border-bb-grey-00 bg-white p-4 mb-6">
+        <p class="text-[0.95rem] text-bb-mid-grey-00">
+          You can step away at any time. Joining is voluntary, and you choose how much to contribute based on what you actually earn.
+        </p>
+      </div>
+
+      <div class="space-y-3">
+        <button type="button" onclick="restart()"
+          class="btn-secondary w-full rounded-lg px-6 py-4 text-[1.05rem] font-semibold">
+          Return to the start
+        </button>
+        <a href="#" onclick="nav('benefits'); return false;"
+          class="block text-center text-bb-teal-00 underline underline-offset-2 py-3 text-[1rem] hover:no-underline">
+          Learn more about NIS support
+        </a>
+      </div>
+    </div>`;
+}
+
+/* ─────────────────────────────────────────────────────────
+   Rendering + navigation
+   ───────────────────────────────────────────────────────── */
+
+const SCREENS = {
+  'landing': screenLanding,
+  'worker-type': screenWorkerType,
+  'benefits': screenBenefits,
+  'estimator': screenEstimator,
+  'register': screenRegister,
+  'confirmation': screenConfirmation,
+};
+
+function render() {
+  const root = document.getElementById('app');
+  root.innerHTML = (SCREENS[state.screen] || screenLanding)();
+  // Update page title for screen-reader users
+  const titles = {
+    'landing': 'Protect your income – Gig Worker Social Protection',
+    'worker-type': 'How do you earn? – Gig Worker Social Protection',
+    'benefits': 'How NIS protects you – Gig Worker Social Protection',
+    'estimator': 'Estimate your contribution – Gig Worker Social Protection',
+    'register': 'Tell us where to reach you – Gig Worker Social Protection',
+    'confirmation': 'Thanks – Gig Worker Social Protection',
+  };
+  document.title = (Object.keys(state.errors).length ? 'Error: ' : '') + (titles[state.screen] || titles.landing);
+  // Move focus to top of main content for screen-reader users on screen change
+  window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+  if (Object.keys(state.errors).length && document.getElementById('error-summary')) {
+    document.getElementById('error-summary').focus();
+  }
+}
+
+function nav(screen) {
+  state.screen = screen;
+  state.errors = {};
+  render();
+}
+
+function selectWorker(id) {
+  state.data.workerType = id;
+  render();
+}
+function nextFromWorkerType() {
+  if (!state.data.workerType) return;
+  nav('benefits');
+}
+
+function selectVariability(id) {
+  state.data.incomeVariability = id;
+  render();
+}
+
+function updateEarnings(v) {
+  const num = Math.max(0, Math.min(20000, parseInt(v, 10) || 0));
+  state.data.monthlyEarnings = num;
+  render();
+}
+
+function submitForm(ev) {
+  ev.preventDefault();
+  const e = {};
+  if (!state.data.firstName.trim()) e.firstName = 'Tell us your first name';
+  if (!state.data.contact.trim()) e.contact = 'Add a phone number or email';
+  else if (state.data.contact.includes('@')) {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(state.data.contact.trim()))
+      e.contact = 'Check that email looks right (for example, you@example.com)';
+  } else {
+    if (state.data.contact.replace(/\D/g, '').length < 7)
+      e.contact = 'Add a phone number we can reach you on';
+  }
+  if (!state.data.contactMethod) e.contactMethod = 'Choose how we should reach you';
+
+  state.errors = e;
+  if (Object.keys(e).length) {
+    render();
+    return;
+  }
+  // Simulate submission and ref number
+  window.__refNumber = 'GWP-' + Math.random().toString(36).substring(2, 7).toUpperCase();
+  nav('confirmation');
+}
+
+function restart() {
+  state.data = {
+    workerType: null, monthlyEarnings: 1500, incomeVariability: null,
+    firstName: '', contact: '', contactMethod: null, alreadyRegistered: null,
+  };
+  window.__refNumber = null;
+  nav('landing');
+}
+
+// Initial render
+render();
+</script>
+</body>
+</html>
