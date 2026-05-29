@@ -280,7 +280,7 @@ const state = {
   expandedScenario: null,
 };
 
-const JOURNEY = ['worker-type', 'income-reality', 'plan', 'next-steps'];
+const JOURNEY = ['worker-type', 'income-reality', 'risk-awareness', 'plan', 'next-steps'];
 
 /* ─────────────────────────────────────────────────────────
    Icons (lightweight inline SVGs)
@@ -313,6 +313,7 @@ const ICONS = {
   chevDown: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 chev"><path d="M6 9l6 6 6-6"/></svg>`,
   warning: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M10.3 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.7 3.86a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>`,
   spark: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M12 3l1.8 5.4L19 10l-5.2 1.6L12 17l-1.8-5.4L5 10l5.2-1.6L12 3z"/></svg>`,
+  clock: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>`,
   doc: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg>`,
   phone: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>`,
   building: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 22V12h6v10M9 7h.01M15 7h.01M9 10h.01M15 10h.01"/></svg>`,
@@ -442,7 +443,7 @@ function screenLanding() {
         </p>
 
         <div class="space-y-3 mb-2">
-          ${primaryBtn('See what protection you may qualify for', "nav('risk-awareness')")}
+          ${primaryBtn('See what protection you may qualify for', "nav('worker-type')")}
           ${secondaryBtn('Estimate my contributions', "nav('plan')")}
           <button type="button" onclick="nav('register-path')"
             class="w-full rounded-lg px-6 py-4 text-[1.05rem] font-semibold text-bb-teal-00 underline underline-offset-2 hover:no-underline">
@@ -515,7 +516,7 @@ function screenLanding() {
 function screenWorkerType() {
   return `
     <div class="screen stage">
-      ${backBtn('risk-awareness')}
+      ${backBtn('landing')}
       ${progressBar('worker-type')}
       ${serviceCaption()}
 
@@ -660,12 +661,13 @@ function screenIncomeReality() {
         ` : ''}
       </fieldset>
 
-      ${primaryBtn('Continue', "nav('plan')")}
+      ${primaryBtn('Continue', "nav('risk-awareness')")}
     </div>`;
 }
 
 /* ─────────────────────────────────────────────────────────
-   SCREEN 4 — Risk awareness
+   SCREEN 4 — Risk awareness (now runs AFTER income, so the
+   figures below reflect what the user actually earns)
    ───────────────────────────────────────────────────────── */
 function screenRiskAwareness() {
   const d = state.data;
@@ -675,14 +677,15 @@ function screenRiskAwareness() {
 
   return `
     <div class="screen stage">
-      ${backBtn('landing')}
+      ${backBtn('income-reality')}
+      ${progressBar('risk-awareness')}
       ${serviceCaption()}
 
       <h1 class="font-bold text-[1.85rem] sm:text-[2.25rem] leading-[1.15] text-bb-blue-00 mb-2">
         What if something happened tomorrow?
       </h1>
       <p class="text-[1.05rem] text-bb-mid-grey-00 mb-6">
-        We don't like thinking about this. But it's worth a minute. Tap any card to see what could happen — and how NISSS helps.
+        These numbers are based on what you just told us you earn. Tap any card to see what it could cost you — and how NISSS helps.
       </p>
 
       <div class="space-y-3 mb-6">
@@ -745,7 +748,7 @@ function screenRiskAwareness() {
         </p>
       </div>
 
-      ${primaryBtn("I'm ready — show me what fits my work", "nav('worker-type')")}
+      ${primaryBtn("See what I should put in", "nav('plan')")}
     </div>`;
 }
 
@@ -777,20 +780,20 @@ function screenPlan() {
     tier === 'safer'   ? saferMonthly :
     tier === 'strong'  ? strongMonthly : null;
 
-  // Protection % by tier — drives the bar in the hero
+  // Relative protection level — drives the bar fill in the hero.
+  // This is a QUALITATIVE indicator only (more contributions = more cover).
+  // Exact benefit figures are not shown until NISSS confirms them.
   const protectionPct =
     tier === 'minimum' ? 40 :
     tier === 'safer'   ? 70 :
     tier === 'strong'  ? 95 : 0;
+  const protectionLabel =
+    tier === 'minimum' ? 'Basic cover' :
+    tier === 'safer'   ? 'Better cover' :
+    tier === 'strong'  ? 'Strongest cover' : '';
 
-  // Income-replacement % by tier — drives the inline benefit estimates
-  const replacementPct =
-    tier === 'minimum' ? 40 :
-    tier === 'safer'   ? 65 :
-    tier === 'strong'  ? 90 : 0;
-
-  // Sample weekly sickness payout, calculated from average earnings
-  const sickWeekly = Math.round(monthlyAvg * (replacementPct / 100) / 4);
+  // Placeholder for any payout figure — real amounts must come from NISSS.
+  const TBC = '<span class="text-bb-mid-grey-00 italic">(amount to be confirmed with NISSS)</span>';
 
   // Tier card definitions
   const tiers = [
@@ -800,38 +803,34 @@ function screenPlan() {
     },
     {
       id: 'safer', label: 'Moderate', monthly: saferMonthly, tag: 'Recommended', color: 'green',
-      sub: 'About 10% of your average earnings. Meaningful income when you need help.',
+      sub: 'A bigger share of your earnings, so you build more contributions and stronger cover.',
     },
     {
       id: 'strong', label: 'Stronger', monthly: strongMonthly, tag: 'Maximum', color: 'teal',
-      sub: 'Around 15% — closer to what employees contribute, with the strongest payouts.',
+      sub: 'The most you put in here — closer to what employees contribute, building the strongest cover.',
     },
   ];
 
-  // What each benefit looks like at the chosen tier
-  const pensionByTier = {
-    minimum: 'A small monthly pension from age 65+ — a top-up alongside other savings.',
-    safer:   'A moderate monthly pension from age 65+ — meaningful day-to-day income.',
-    strong:  'A higher monthly pension from age 65+ — closer to what a long-time employee receives.',
-  };
+  // Benefit descriptions — plain-language only. No payout figures are shown
+  // until NISSS confirms the calculation; each carries a "to be confirmed" note.
   const benefitsInline = [
     { id: 'sickness',   icon: 'sickness',   title: 'Sickness benefit',
-      desc: tier ? `If you can't work for a week, NISSS pays you ~<strong>${fmtMoney(sickWeekly)}</strong> — so rent, groceries, and bills stay covered.` : '' },
+      desc: tier ? `If you can't work because you're sick, NISSS pays part of your usual earnings while you recover ${TBC}.` : '' },
     { id: 'maternity',  icon: 'maternity',  title: 'Maternity benefit',
-      desc: tier ? `Paid time off when you have a baby — at about <strong>${replacementPct}%</strong> of your usual earnings.` : '' },
+      desc: tier ? `Paid time off when you have a baby, based on your earnings ${TBC}.` : '' },
     { id: 'paternity',  icon: 'paternity',  title: 'Paternity benefit',
-      desc: tier ? `A short paid break for new fathers to be with their family.` : '' },
+      desc: tier ? `A short paid break for new fathers to be with their family ${TBC}.` : '' },
     { id: 'invalidity', icon: 'invalidity', title: 'Invalidity benefit',
-      desc: tier ? `Ongoing income if a long illness or injury stops you working — about <strong>${replacementPct}%</strong> of usual earnings.` : '' },
+      desc: tier ? `Ongoing income if a long illness stops you working ${TBC}.` : '' },
     { id: 'survivors',  icon: 'survivors',  title: 'Survivors benefit',
-      desc: tier ? `Monthly payments for your partner, children, or parents if anything happens to you.` : '' },
+      desc: tier ? `Monthly payments for your partner, children, or parents if anything happens to you ${TBC}.` : '' },
     { id: 'pension',    icon: 'pension',    title: 'Old age pension',
-      desc: tier ? pensionByTier[tier] : '' },
+      desc: tier ? `A monthly pension for life once you reach pension age, built from your years of contributions ${TBC}.` : '' },
   ];
 
   return `
     <div class="screen stage">
-      ${backBtn('income-reality')}
+      ${backBtn('risk-awareness')}
       ${progressBar('plan')}
       ${serviceCaption()}
 
@@ -899,12 +898,15 @@ function screenPlan() {
 
           <div class="mt-5">
             <div class="flex items-center justify-between mb-1.5">
-              <span class="text-[0.9rem] text-white/90">Estimated protection level</span>
-              <span class="text-[0.9rem] font-semibold text-white tabular-nums">${protectionPct}%</span>
+              <span class="text-[0.9rem] text-white/90">Your protection level</span>
+              <span class="text-[0.9rem] font-semibold text-white">${protectionLabel}</span>
             </div>
             <div class="protect-bar bg-white/20">
               <div class="protect-bar-fill" style="width: ${protectionPct}%"></div>
             </div>
+            <p class="text-[0.8rem] text-white/70 mt-2">
+              The more you put in, the more cover you build. Exact benefit amounts to be confirmed with NISSS.
+            </p>
           </div>
         </div>
 
@@ -941,10 +943,17 @@ function screenPlan() {
           </div>
         </div>
 
-        <div class="rounded-2xl bg-bb-yellow-10 border border-bb-yellow-40 p-4 mb-6 flex items-start gap-3">
+        <div class="rounded-2xl bg-bb-yellow-10 border border-bb-yellow-40 p-4 mb-4 flex items-start gap-3">
           <span class="text-bb-yellow-00 shrink-0 mt-0.5">${ICONS.spark}</span>
           <p class="text-[0.95rem] text-bb-blue-00">
             <strong>Slow month?</strong> Pay less or skip — no penalty. <strong>Good month?</strong> Top up. What counts is the total over the year.
+          </p>
+        </div>
+
+        <div class="rounded-2xl bg-bb-blue-10 border border-bb-blue-40 p-4 mb-6 flex items-start gap-3">
+          <span class="text-bb-blue-100 shrink-0 mt-0.5">${ICONS.clock}</span>
+          <p class="text-[0.95rem] text-bb-blue-00">
+            <strong>When your cover starts:</strong> you're protected after one full year of contributions — at least BDS$1,200 over the year. Keep paying and your cover stays active.
           </p>
         </div>
       ` : `
@@ -955,7 +964,7 @@ function screenPlan() {
 
       ${primaryBtn("I'm ready — show me next steps", "nav('next-steps')", { disabled: !tier })}
       <p class="text-center text-[0.85rem] text-bb-mid-grey-00 mt-3">
-        Estimates use general NISSS rates. Real contributions depend on your declared earnings.
+        Contribution amounts are examples to help you plan. Exact benefit amounts and rates to be confirmed with NISSS.
       </p>
     </div>`;
 }
@@ -1180,10 +1189,17 @@ function screenRegistrationGuide() {
         `).join('')}
       </div>
 
-      <div class="rounded-2xl bg-bb-yellow-10 border border-bb-yellow-40 p-4 mb-6 flex items-start gap-3">
+      <div class="rounded-2xl bg-bb-yellow-10 border border-bb-yellow-40 p-4 mb-4 flex items-start gap-3">
         <span class="text-bb-yellow-00 shrink-0 mt-0.5">${ICONS.spark}</span>
         <p class="text-[0.98rem] text-bb-blue-00">
-          <strong>Tip:</strong> If you started working for yourself a while ago, NISSS may let you back-pay up to <strong>3 years</strong> to count toward benefits. Ask when you register.
+          <strong>Started a while ago?</strong> NISSS may let you back-pay up to <strong>3 years</strong> so it counts toward your benefits. Missed years carry a <strong>5% surcharge per year</strong>, which adds up — so it's cheaper to start sooner. Ask when you register.
+        </p>
+      </div>
+
+      <div class="rounded-2xl bg-bb-green-10 border border-bb-green-40 p-4 mb-6 flex items-start gap-3">
+        <span class="text-bb-green-00 shrink-0 mt-0.5">${ICONS.shield}</span>
+        <p class="text-[0.98rem] text-bb-blue-00">
+          <strong>It's never too late.</strong> Even if you start close to retirement and don't build enough contributions for a full pension, you may still qualify for a <strong>one-time grant</strong>. Starting now always counts for something.
         </p>
       </div>
 
@@ -1252,7 +1268,7 @@ function screenPaymentOptions() {
         <div>
           <p class="font-semibold text-bb-blue-00 mb-1">If you stop contributing</p>
           <p class="text-[0.95rem] text-bb-blue-00/80 mb-2">No problem in the short term — life happens. But to qualify for most benefits, you need a minimum number of contributions over time.</p>
-          <p class="text-[0.95rem] text-bb-blue-00/80">You can <strong>back-pay up to 3 years</strong> of missed contributions to count toward benefits.</p>
+          <p class="text-[0.95rem] text-bb-blue-00/80">You can <strong>back-pay up to 3 years</strong> of missed contributions to count toward benefits. Each missed year adds a <strong>5% surcharge</strong>, so catching up sooner costs less.</p>
         </div>
       </div>
 
@@ -1411,6 +1427,14 @@ function screenTracker() {
     <div class="screen stage">
       ${backBtn('landing')}
 
+      <!-- Future-feature preview banner -->
+      <div class="rounded-2xl bg-bb-purple-00/5 border border-bb-purple-100/40 p-4 mb-5 flex items-start gap-3">
+        <span class="text-bb-purple-00 shrink-0 mt-0.5">${ICONS.spark}</span>
+        <p class="text-[0.92rem] text-bb-blue-00">
+          <strong>A glimpse of what's coming.</strong> Today most people can't see how much they've put in or what they qualify for. This is an example of a future feature — the details below are made up to show the idea.
+        </p>
+      </div>
+
       <!-- Header card -->
       <div class="rounded-3xl bg-gradient-to-br from-bb-teal-00 to-bb-blue-100 text-white p-6 mb-5 shadow-card-hover">
         <div class="flex items-start justify-between gap-3 mb-3">
@@ -1512,7 +1536,7 @@ function screenTracker() {
         <span class="text-bb-blue-00 shrink-0 mt-0.5">${ICONS.spark}</span>
         <div>
           <p class="font-semibold text-bb-blue-00 mb-1">You skipped August 2026</p>
-          <p class="text-[0.95rem] text-bb-blue-00/80 mb-2">No worries — slow months happen. You can back-pay it any time in the next 3 years and it'll count toward your benefits.</p>
+          <p class="text-[0.95rem] text-bb-blue-00/80 mb-2">No worries — slow months happen. You can back-pay it any time in the next 3 years and it'll count toward your benefits. After a year, a 5% surcharge is added, so sooner is cheaper.</p>
           <button type="button" onclick="alert('In a real service, this would let you back-pay BDS$150 for August 2026.')"
             class="link-bb text-[0.95rem] font-medium">Back-pay BDS$150 →</button>
         </div>
